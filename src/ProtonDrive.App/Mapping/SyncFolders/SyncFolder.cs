@@ -1,4 +1,5 @@
 ﻿using System;
+using ProtonDrive.App.FileExclusion;
 using ProtonDrive.App.Settings;
 using ProtonDrive.Client.Contracts;
 
@@ -23,6 +24,7 @@ public sealed class SyncFolder
     public string? RemoteName => Mapping.Remote.RootItemName;
     public string? RemoteShareId => Mapping.Remote.ShareId;
     public bool RemoteIsReadOnly => Mapping.Remote.IsReadOnly;
+    public FileFilter Filter  => Mapping.Filter;
     public MappingSetupStatus Status => _state.Status;
     public MappingErrorCode ErrorCode => _state.ErrorCode;
     public bool IsStorageOptimizationEnabled => Mapping.Local.StorageOptimization?.IsEnabled ?? false;

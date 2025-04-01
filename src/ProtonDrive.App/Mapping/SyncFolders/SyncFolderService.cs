@@ -236,6 +236,32 @@ internal sealed class SyncFolderService : ISyncFolderService, IMappingsAware, IM
         }
     }
 
+    public async Task EditFolderFilter(SyncFolder syncFolder, string includes, string excludes, CancellationToken cancellationToken)
+    {
+        using var mappings = await _mappingRegistry.GetMappingsAsync(cancellationToken).ConfigureAwait(false);
+
+        var pathToLog = _logger.GetSensitiveValueForLogging(syncFolder.LocalPath);
+        _logger.LogInformation(
+            "Requested to edit filter for host device sync folder \"{Path}\", mapping {MappingId}",
+            pathToLog,
+            syncFolder.Mapping.Id);
+
+        var mapping = mappings.GetActive().FirstOrDefault(m => m == syncFolder.Mapping);
+
+        if (mapping is null)
+        {
+            _logger.LogWarning("Unable to find mapping for host device sync folder \"{Path}\"", pathToLog);
+
+            return;
+        }
+
+        mapping.Filter.Includes = includes;
+        mapping.Filter.Excludes = excludes;
+        mapping.IsDirty = true;
+
+        mappings.Update(mapping);
+    }
+
     void IMappingsAware.OnMappingsChanged(
         IReadOnlyCollection<RemoteToLocalMapping> activeMappings,
         IReadOnlyCollection<RemoteToLocalMapping> deletedMappings)

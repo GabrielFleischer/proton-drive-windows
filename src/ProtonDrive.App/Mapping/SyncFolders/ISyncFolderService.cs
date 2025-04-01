@@ -77,4 +77,6 @@ public interface ISyncFolderService
     /// It's optional to await it as the method doesn't raise expected exceptions.
     /// </returns>
     Task SetStorageOptimizationAsync(SyncFolder syncFolder, bool isEnabled, CancellationToken cancellationToken);
+
+    Task EditFolderFilter(SyncFolder syncFolder, string includes, string excludes, CancellationToken cancellationToken);
 }
