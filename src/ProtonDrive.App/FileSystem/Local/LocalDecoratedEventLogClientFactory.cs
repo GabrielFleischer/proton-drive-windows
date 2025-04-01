@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using ProtonDrive.App.FileExclusion;
 using ProtonDrive.App.Mapping;
 using ProtonDrive.App.Settings;
 using ProtonDrive.Client.Contracts;
@@ -142,8 +143,10 @@ internal sealed class LocalDecoratedEventLogClientFactory
             undecoratedClient);
 
         var logger = _loggerFactory.CreateLogger<LoggingEventLogClientDecorator<long>>();
-
-        return new LoggingEventLogClientDecorator<long>(logger, mapping.Local.InternalVolumeId, scope: mapping.Id.ToString(), rootedClient);
+        var loggingClient = new LoggingEventLogClientDecorator<long>(logger, mapping.Local.InternalVolumeId, scope: mapping.Id.ToString(), rootedClient);
+        
+        var filterLogger = _loggerFactory.CreateLogger<FileExclusionEventLogClient<long>>();
+        return new FileExclusionEventLogClient<long>(filterLogger, mapping.Filter, loggingClient);
     }
 
     private IEventLogClient<long> CreateClientForSharedWithMeFile(RemoteToLocalMapping mapping, long parentFolderId, string eventScope, IRootableEventLogClient<long> undecoratedClient)
@@ -154,7 +157,10 @@ internal sealed class LocalDecoratedEventLogClientFactory
 
         var logger = _loggerFactory.CreateLogger<LoggingEventLogClientDecorator<long>>();
 
-        return new LoggingEventLogClientDecorator<long>(logger, mapping.Local.InternalVolumeId, eventScope, virtualRootClient);
+        var loggingClient = new LoggingEventLogClientDecorator<long>(logger, mapping.Local.InternalVolumeId, eventScope, virtualRootClient);
+        
+        var filterLogger = _loggerFactory.CreateLogger<FileExclusionEventLogClient<long>>();
+        return new FileExclusionEventLogClient<long>(filterLogger, mapping.Filter, loggingClient);
     }
 
     private IRootableEventLogClient<long> CreateUndecoratedClient()

@@ -20,7 +20,7 @@ public sealed record EventLogEntry<TId>(EventLogChangeType ChangeType)
     /// The file system object path relative to synchronization root folder.
     /// </summary>
     /// <remarks>
-    /// Used only for logging purposes, not used in log-based update detection.
+    /// Used for logging and file exclusion system
     /// </remarks>
     public string? Path { get; init; }
 
@@ -29,7 +29,7 @@ public sealed record EventLogEntry<TId>(EventLogChangeType ChangeType)
     /// in case of rename or move.
     /// </summary>
     /// <remarks>
-    /// Used only for logging purposes, not used in log-based update detection.
+    /// Used for logging and file exclusion system
     /// </remarks>
     public string? OldPath { get; init; }
 
