@@ -29,7 +29,7 @@ internal class AppUpdate : IAppUpdate
 
     public string FilePath => _state.NewRelease.IsNew ? _state.AppUpdates.FilePath(_state.NewRelease) : string.Empty;
 
-    public string? FileArguments => _state.NewRelease.IsNew ? _state.NewRelease.File.Arguments : null;
+    public string? FileArguments => null;
 
     public IReadOnlyList<IRelease> ReleaseHistory()
     {
@@ -128,9 +128,7 @@ internal class AppUpdate : IAppUpdate
 
     private Release GetNewRelease(IEnumerable<Release> releases, bool earlyAccess, bool manual)
     {
-        return releases
-                   .FirstOrDefault(r => r.IsNew && (!r.IsEarlyAccess || earlyAccess) && (manual || r.RolloutRatio is null || r.RolloutRatio >= _state.RolloutEligibilityThreshold))
-               ?? Release.EmptyRelease();
+        return Release.EmptyRelease();
     }
 
     private bool Equals(Release one, Release other)

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -86,17 +85,7 @@ internal class WebReleaseRepository : IReleaseRepository
 
     private IEnumerable<Release> ConvertContract(ReleasesContract releases)
     {
-        if (!releases.Releases.Any())
-        {
-            return new CategoryReleases(releases.Categories, _config.CurrentVersion, _config.EarlyAccessCategoryName);
-        }
-
-        return releases.Releases
-            .Select(
-                r => new Release(
-                    r,
-                    string.Equals(_config.EarlyAccessCategoryName, r.CategoryName, StringComparison.OrdinalIgnoreCase),
-                    _config.CurrentVersion));
+        return ImmutableList<Release>.Empty;
     }
 
     private async Task SaveContentToCacheAsync(HttpContent content)

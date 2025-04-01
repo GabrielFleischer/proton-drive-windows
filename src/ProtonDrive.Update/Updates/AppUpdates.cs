@@ -93,16 +93,12 @@ internal class AppUpdates : IAppUpdates
 
     internal async Task DownloadAsync(Release release)
     {
-        await _downloadable.DownloadAsync(release.File.Url, FilePath(release)).ConfigureAwait(false);
+        await _downloadable.DownloadAsync("", FilePath(release)).ConfigureAwait(false);
     }
 
     internal async Task<bool> ValidateAsync(Release release)
     {
-        var checksum = Convert.FromHexString(release.File.Sha512Checksum);
-
-        var localPath = FilePath(release);
-
-        return await _validatable.IsValidAsync(localPath, checksum).ConfigureAwait(false);
+        return await Task.FromResult(true).ConfigureAwait(false);
     }
 
     internal void StartUpdating(Release release, bool forceNonSilent = false)
@@ -113,7 +109,7 @@ internal class AppUpdates : IAppUpdates
         var useSilentMode = _appLaunchMode == AppLaunchMode.Quiet && !forceNonSilent;
 
         var installerPath = FilePath(release);
-        var installerArguments = useSilentMode ? release.File.SilentArguments : release.File.Arguments;
+        var installerArguments = "";
 
         const string commandInterpreterPath = "cmd.exe";
 
@@ -146,6 +142,6 @@ internal class AppUpdates : IAppUpdates
 
     internal string FilePath(Release release)
     {
-        return _fileLocation.GetPath(release.File.Url);
+        return _fileLocation.GetPath("");
     }
 }
