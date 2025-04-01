@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using ProtonDrive.App.FileExclusion;
 using ProtonDrive.App.FileSystem.Local.SpecialFolders;
 using ProtonDrive.App.FileSystem.Remote;
 using ProtonDrive.App.Settings;
@@ -332,7 +333,12 @@ internal sealed class LocalDecoratedFileSystemClientFactory
             _fileTransferAbortionStrategy,
             deletionFallbackClient);
 
-        return transferAbortionClient;
+        var exclusionClient = new FileExclusionFileSystemClient<long>(
+            _loggerFactory.CreateLogger<FileExclusionFileSystemClient<long>>(),
+            mapping.Filter, 
+            transferAbortionClient);
+
+        return exclusionClient;
     }
 
     private IFileSystemClient<long> CreateUndecoratedClient(SyncMethod syncMethod)

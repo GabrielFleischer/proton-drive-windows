@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using ProtonDrive.App.Account;
+using ProtonDrive.App.FileExclusion;
 using ProtonDrive.App.Settings;
 using ProtonDrive.Client.Contracts;
 using ProtonDrive.Sync.Adapter;
@@ -48,10 +49,16 @@ internal sealed class RemoteDecoratedFileSystemClientFactory
                 new DispatchingFileSystemClient<string>(rootToClientMap));
     }
 
-    private static IFileSystemClient<string> CreateClientForMapping(RemoteToLocalMapping mapping, IFileSystemClient<string> clientForShare)
+    private IFileSystemClient<string> CreateClientForMapping(RemoteToLocalMapping mapping, IFileSystemClient<string> clientForShare)
     {
+        var exclusionClient = new FileExclusionFileSystemClient<string>(
+            _loggerFactory.CreateLogger<FileExclusionFileSystemClient<string>>(),
+            mapping.Filter,
+            clientForShare
+        );
+        
         return mapping.HasSetupSucceeded
-            ? new RootedFileSystemClientDecorator(new RemoteRootDirectory(mapping), clientForShare)
+            ? new RootedFileSystemClientDecorator(new RemoteRootDirectory(mapping), exclusionClient)
             : new OfflineFileSystemClient<string>();
     }
 
