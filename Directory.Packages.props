@@ -46,5 +46,9 @@
     <PackageVersion Include="System.Text.Json" Version="9.0.2" />
     <PackageVersion Include="Vanara.PInvoke.CldApi" Version="4.0.5" />
     <PackageVersion Include="Vanara.PInvoke.Shell32" Version="4.0.5" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0"/>
+    <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0"/>
+    <PackageVersion Include="NUnit.Analyzers" Version="4.6.0"/>
+    <PackageVersion Include="NUnit" Version="4.3.2"/>
   </ItemGroup>
 </Project>
