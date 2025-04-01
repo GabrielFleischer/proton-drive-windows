@@ -42,7 +42,7 @@ internal static class FileSystemNodeInfoProvider
 
         entry.ThrowIfIdentityMismatch(info.Id);
 
-        return entry.ToNodeInfo(parentDirectory.ObjectId);
+        return entry.ToNodeInfo(parentDirectory.ObjectId, info.Path);
     }
 
     private static NodeInfo<long> GetDirectoryInfo(NodeInfo<long> directoryInfo)

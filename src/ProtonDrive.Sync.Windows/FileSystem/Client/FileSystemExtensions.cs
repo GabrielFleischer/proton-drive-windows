@@ -15,11 +15,12 @@ internal static class FileSystemExtensions
         AttributesToSkip = FileAttributes.None, // By default, Hidden and System attributes are skipped
     };
 
-    public static NodeInfo<long> ToNodeInfo(this FileSystemEntry entry, long parentId)
+    public static NodeInfo<long> ToNodeInfo(this FileSystemEntry entry, long parentId, string path)
     {
         return new NodeInfo<long>()
             .WithId(entry.ObjectId)
             .WithName(entry.Name)
+            .WithPath(path + Path.DirectorySeparatorChar + entry.Name)
             .WithAttributes(entry.Attributes)
             .WithLastWriteTimeUtc(entry.LastWriteTimeUtc)
             .WithSize(entry.Size)

@@ -94,7 +94,7 @@ public sealed class ClassicFileSystemClient : BaseFileSystemClient, IFileSystemC
         var parentId = directory.ObjectId;
 
         return WithMappedException(directory.EnumerateFileSystemEntries(fileName: null, EnumerationOptions, ownsHandle: true), info.Id)
-            .Select(x => x.ToNodeInfo(parentId))
+            .Select(x => x.ToNodeInfo(parentId, info.Path))
             .ToAsyncEnumerable();
     }
 

@@ -127,7 +127,7 @@ public sealed class OnDemandHydrationFileSystemClient : BaseFileSystemClient, IF
 
         var entries = directory.EnumerateFileSystemEntries(fileName: null, EnumerationOptions, ownsHandle: true).WithExceptionMapping(info.Id);
 
-        return entries.Select(x => x.ToNodeInfo(parentId)).ToAsyncEnumerable();
+        return entries.Select(x => x.ToNodeInfo(parentId, info.Path)).ToAsyncEnumerable();
     }
 
     public Task<NodeInfo<long>> CreateDirectory(NodeInfo<long> info, CancellationToken cancellationToken)
