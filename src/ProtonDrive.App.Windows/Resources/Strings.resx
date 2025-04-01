@@ -475,6 +475,22 @@ disable storage optimization at any time.</value>
     <value>_Remove folder</value>
     <comment>The underscore (_) denotes an access key, which enhances the app's accessibility by allowing users to press the letter following the underscore instead of using a mouse to click the button.</comment>
   </data>
+  <data name="Main_MyComputer_Folders_Menu_Item_EditFolderFilter" xml:space="preserve">
+    <value>_Edit file filter</value>
+    <comment>The underscore (_) denotes an access key, which enhances the app's accessibility by allowing users to press the letter following the underscore instead of using a mouse to click the button.</comment>
+  </data>
+  <data name="Main_MyComputer_Edit_Filter_Includes" xml:space="preserve">
+    <value>Inclusions</value>
+  </data>
+  <data name="Main_MyComputer_Edit_Filter_Excludes" xml:space="preserve">
+    <value>Exclusions</value>
+  </data>
+  <data name="Main_MyComputer_Edit_Filter_Button_Save_HelpText" xml:space="preserve">
+    <value>Save the new filter</value>
+  </data>
+  <data name="Main_MyComputer_Edit_Filter_Button_Cancel_HelpText" xml:space="preserve">
+    <value>Cancel filter editing</value>
+  </data>
   <data name="Main_MyComputer_Folders_Button_Add" xml:space="preserve">
     <value>_Add folders</value>
     <comment>The underscore (_) denotes an access key, which enhances the app's accessibility by allowing users to press the letter following the underscore instead of using a mouse to click the button.</comment>

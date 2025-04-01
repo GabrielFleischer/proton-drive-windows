@@ -153,6 +153,12 @@
                                         CommandParameter="{Binding}"
                                         Command="{Binding DataContext.RemoveFolderCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=3}}"
                                         Header="{loc:Resource Main_MyComputer_Folders_Menu_Item_RemoveFolder}" />
+
+                                    <MenuItem
+                                        AutomationProperties.AutomationId="EditFolderFilterMenuItem"
+                                        CommandParameter="{Binding}"
+                                        Command="{Binding DataContext.EditFolderFilterCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=3}}"
+                                        Header="{loc:Resource Main_MyComputer_Folders_Menu_Item_EditFolderFilter}" />
                                 </MenuItem>
                             </Menu>
                         </Grid>

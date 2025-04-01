@@ -32,6 +32,7 @@ internal sealed class FolderListViewModel : ObservableObject, ISyncFoldersAware,
     private readonly Func<AddFoldersViewModel> _addFoldersViewModelFactory;
     private readonly Func<RemoveClassicFolderConfirmationViewModel> _removeClassicFolderConfirmationViewModelFactory;
     private readonly Func<RemoveOnDemandFolderConfirmationViewModel> _removeOnDemandFolderConfirmationViewModelFactory;
+    private readonly Func<EditFolderFilterViewModel> _editFilterViewModelFactory;
     private readonly Func<StorageOptimizationTurnedOffNotificationViewModel> _storageOptimizationTurnedOffNotificationViewModelFactory;
     private readonly Func<StorageOptimizationUnavailableNotificationViewModel> _storageOptimizationUnavailableNotificationViewModelFactory;
     private readonly IScheduler _scheduler;
@@ -47,6 +48,7 @@ internal sealed class FolderListViewModel : ObservableObject, ISyncFoldersAware,
         Func<AddFoldersViewModel> addFoldersViewModelFactory,
         Func<RemoveClassicFolderConfirmationViewModel> removeClassicFolderConfirmationViewModelFactory,
         Func<RemoveOnDemandFolderConfirmationViewModel> removeOnDemandFolderConfirmationViewModelFactory,
+        Func<EditFolderFilterViewModel> editFilterViewModelFactory,
         Func<StorageOptimizationTurnedOffNotificationViewModel> storageOptimizationTurnedOffNotificationViewModelFactory,
         Func<StorageOptimizationUnavailableNotificationViewModel> storageOptimizationUnavailableNotificationViewModelFactory,
         [FromKeyedServices("Dispatcher")] IScheduler scheduler)
@@ -58,6 +60,7 @@ internal sealed class FolderListViewModel : ObservableObject, ISyncFoldersAware,
         _addFoldersViewModelFactory = addFoldersViewModelFactory;
         _removeClassicFolderConfirmationViewModelFactory = removeClassicFolderConfirmationViewModelFactory;
         _removeOnDemandFolderConfirmationViewModelFactory = removeOnDemandFolderConfirmationViewModelFactory;
+        _editFilterViewModelFactory = editFilterViewModelFactory;
         _storageOptimizationTurnedOffNotificationViewModelFactory = storageOptimizationTurnedOffNotificationViewModelFactory;
         _storageOptimizationUnavailableNotificationViewModelFactory = storageOptimizationUnavailableNotificationViewModelFactory;
         _scheduler = scheduler;
@@ -65,6 +68,7 @@ internal sealed class FolderListViewModel : ObservableObject, ISyncFoldersAware,
         AddFoldersCommand = new RelayCommand(AddFolders);
         OpenFolderCommand = new AsyncRelayCommand<FolderViewModel?>(OpenFolderAsync);
         RemoveFolderCommand = new AsyncRelayCommand<FolderViewModel?>(RemoveFolderAsync);
+        EditFolderFilterCommand = new RelayCommand<FolderViewModel?>(EditFolderFilter);
         ToggleStorageOptimizationCommand = new AsyncRelayCommand<FolderViewModel?>(ToggleStorageOptimizationAsync, CanToggleStorageOptimization);
     }
 
@@ -73,6 +77,7 @@ internal sealed class FolderListViewModel : ObservableObject, ISyncFoldersAware,
     public ICommand AddFoldersCommand { get; }
     public IAsyncRelayCommand<FolderViewModel?> OpenFolderCommand { get; }
     public IAsyncRelayCommand<FolderViewModel?> RemoveFolderCommand { get; }
+    public IRelayCommand<FolderViewModel?> EditFolderFilterCommand { get; }
     public IAsyncRelayCommand<FolderViewModel?> ToggleStorageOptimizationCommand { get; }
 
     public bool IsStorageOptimizationFeatureEnabled
@@ -243,6 +248,18 @@ internal sealed class FolderListViewModel : ObservableObject, ISyncFoldersAware,
         }
 
         return _syncFolderService.RemoveHostDeviceFolderAsync(viewModel.DataItem, cancellationToken);
+    }
+
+    private void EditFolderFilter(FolderViewModel? viewModel)
+    {
+        if (viewModel == null)
+        {
+            return;
+        }
+        
+        var editFolderFilterViewModel = _editFilterViewModelFactory.Invoke();
+        editFolderFilterViewModel.SetSyncFolder(viewModel.DataItem);
+        _dialogService.ShowDialog(editFolderFilterViewModel);
     }
 
     private RemoveFolderConfirmationViewModelBase GetConfirmationViewModel(SyncMethod syncMethod, string folderName)

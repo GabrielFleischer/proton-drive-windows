@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="ProtonDrive.App.Windows.Views.Main.MyComputer.EditFolderFilterView"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:myComputer="clr-namespace:ProtonDrive.App.Windows.Views.Main.MyComputer"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:loc="clr-namespace:ProtonDrive.App.Windows.Resources"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance myComputer:EditFolderFilterViewModel}">
+
+    <b:Interaction.Triggers>
+        <b:DataTrigger
+            Binding="{Binding FilterEdited}"
+            Value="True">
+            <b:InvokeCommandAction Command="SystemCommands.CloseWindowCommand" />
+        </b:DataTrigger>
+    </b:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            AutomationProperties.HeadingLevel="Level2"
+            Grid.Row="0"
+            Text="{loc:Resource Main_MyComputer_Edit_Filter_Includes}"
+            FontWeight="SemiBold"
+            Margin="20,24,0,0" />
+
+        <TextBox
+            Grid.Row="1"
+            TextWrapping="NoWrap"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Auto"
+            Text="{Binding Includes, FallbackValue='\n\n\n\n\n', UpdateSourceTrigger=PropertyChanged}"
+            Width="600"
+            MinHeight="60"
+            Height="Auto"
+            MaxHeight="250"
+            VerticalAlignment="Top"
+            Margin="20,10,20,0" />
+
+        <TextBlock
+            AutomationProperties.HeadingLevel="Level2"
+            Grid.Row="2"
+            Text="{loc:Resource Main_MyComputer_Edit_Filter_Excludes}"
+            FontWeight="SemiBold"
+            Margin="20,24,0,0" />
+
+        <TextBox
+            Grid.Row="3"
+            TextWrapping="NoWrap"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Auto"
+            Text="{Binding Excludes, FallbackValue='\n\n\n\n\n', UpdateSourceTrigger=PropertyChanged}"
+            Width="600"
+            MinHeight="60"
+            Height="Auto"
+            MaxHeight="250"
+            VerticalAlignment="Top"
+            Margin="20,10,20,0" />
+
+        <Grid
+            Grid.Row="4"
+            HorizontalAlignment="Center"
+            Margin="0,10,0,10">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                AutomationProperties.HelpText="{loc:Resource Main_MyComputer_Edit_Filter_Button_Save_HelpText}"
+                Content="{loc:Resource Dialog_Button_Save}"
+                Command="{Binding SaveFilterCommand}"
+                CommandParameter="{Binding ElementName=Dialog}"
+                IsDefault="True"
+                Style="{StaticResource PrimaryButtonStyle}"
+                VerticalAlignment="Center" />
+
+            <Button
+                Grid.Column="1"
+                AutomationProperties.HelpText="{loc:Resource Main_MyComputer_Edit_Filter_Button_Cancel_HelpText}"
+                Content="{loc:Resource Dialog_Button_Cancel}"
+                Command="SystemCommands.CloseWindowCommand"
+                IsCancel="True"
+                VerticalAlignment="Center"
+                Margin="20,0,0,0" />
+        </Grid>
+    </Grid>
+</UserControl>

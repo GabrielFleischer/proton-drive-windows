@@ -851,6 +851,22 @@ désactiver l'optimisation du stockage à tout moment.</value>
     <value>_Retirer le dossier</value>
     <comment>The underscore (_) denotes an access key, which enhances the app's accessibility by allowing users to press the letter following the underscore instead of using a mouse to click the button.</comment>
   </data>
+  <data name="Main_MyComputer_Folders_Menu_Item_EditFolderFilter">
+    <value>_Modifier le filter du dossier</value>
+    <comment>The underscore (_) denotes an access key, which enhances the app's accessibility by allowing users to press the letter following the underscore instead of using a mouse to click the button.</comment>
+  </data>
+  <data name="Main_MyComputer_Edit_Filter_Includes" xml:space="preserve">
+    <value>Inclusions</value>
+  </data>
+  <data name="Main_MyComputer_Edit_Filter_Excludes" xml:space="preserve">
+    <value>Exclusions</value>
+  </data>
+  <data name="Main_MyComputer_Edit_Filter_Button_Save_HelpText" xml:space="preserve">
+    <value>Appliquer les modifications</value>
+  </data>
+  <data name="Main_MyComputer_Edit_Filter_Button_Cancel_HelpText" xml:space="preserve">
+    <value>Annuler les modifications</value>
+  </data>
   <data name="Main_MyComputer_Folders_RemoveConfirmation_Button_Confirm">
     <value>Retirer le dossier</value>
   </data>
@@ -933,6 +949,10 @@ désactiver l'optimisation du stockage à tout moment.</value>
     <value>Mon ordinateur</value>
   </data>
   <data name="Main_Settings_AccountRootFolder_Button_Change">
+    <value>_Modifier</value>
+    <comment>The underscore (_) denotes an access key, which enhances the app's accessibility by allowing users to press the letter following the underscore instead of using a mouse to click the button.</comment>
+  </data>
+  <data name="Main_MyComputer_Edit_Button_Change">
     <value>_Modifier</value>
     <comment>The underscore (_) denotes an access key, which enhances the app's accessibility by allowing users to press the letter following the underscore instead of using a mouse to click the button.</comment>
   </data>

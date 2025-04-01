@@ -193,6 +193,9 @@ internal static class AppServices
 
             .AddTransient<StorageOptimizationUnavailableNotificationViewModel>()
             .AddSingleton<Func<StorageOptimizationUnavailableNotificationViewModel>>(provider => provider.GetRequiredService<StorageOptimizationUnavailableNotificationViewModel>)
+            
+            .AddTransient<EditFolderFilterViewModel>()
+            .AddTransient<Func<EditFolderFilterViewModel>>(provider => provider.GetRequiredService<EditFolderFilterViewModel>)
 
             .AddSingleton<SharedWithMeViewModel>()
             .AddSingleton<ISharedWithMeOnboardingStateAware>(provider => provider.GetRequiredService<SharedWithMeViewModel>())

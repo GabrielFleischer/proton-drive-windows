@@ -83,6 +83,10 @@
                 <syncedDevices:AddFoldersView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type syncedDevices:EditFolderFilterViewModel}">
+                <syncedDevices:EditFolderFilterView />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type activity:RenameRemoteNodeViewModel}">
                 <activity:RenameRemoteNodeView />
             </DataTemplate>
